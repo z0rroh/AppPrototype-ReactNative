@@ -8,6 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {Container,Content,Icon, Thumbnail, Header, Left, Right, Body} from 'native-base'
+import Anuncio from '../Anuncio';
 
 export default class HomeTab extends Component {
 
@@ -35,6 +36,9 @@ export default class HomeTab extends Component {
             <Icon name="refresh" style={{paddingRight:10}}></Icon>
           </Right>
         </Header>
+        <Content>
+          <Anuncio/>
+        </Content>
       </Container>
     );
   }
