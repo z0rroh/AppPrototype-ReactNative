@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {Card, CardItem, Thumbnail, Body, Left, Right, Button, Icon} from 'native-base'
 import ResponsiveImage from 'react-native-responsive-image'
+import MapView,Marker { PROVIDER_GOOGLE } from 'react-native-maps'
 
 var {width, height} = Dimensions.get('window');
 
@@ -63,6 +64,19 @@ export default class CardComponent extends Component {
               <Text style={styles.cardItemUbicationDateText}>Hace 2 horas</Text>
             </Body>
           </Left>
+        </CardItem>
+        <CardItem style={styles.mapContainer}>
+          <Text>HolA</Text>
+          <MapView
+            style={styles.map}
+            provider={ PROVIDER_GOOGLE }
+            region = {
+              {latitude: 37.78825,
+              longitude: -122.4324,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,}
+            }
+          />
         </CardItem>
       </Card>
     );
@@ -121,5 +135,16 @@ const styles = StyleSheet.create({
   cardItemUbicationDateText:{
     fontSize: 12,
     color:"grey"
+  },
+  mapContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff'
+  },
+  map: {
+      width: null,
+      height: 300,
+      flex: 1
   }
 });
