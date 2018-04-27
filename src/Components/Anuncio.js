@@ -62,7 +62,7 @@ export default class CardComponent extends Component {
               <Text style={styles.cardItemAutorText}>{anuncio.autor}</Text>
               <TouchableWithoutFeedback
                 onPress = {()=>{
-                  this.props.navigation.navigate('AnuncioLocation')
+                  this.props.navigation.navigate('AnuncioLocation',{anuncio: anuncio})
                 }}
                 >
                 <View style={styles.cardItemLocationView}>

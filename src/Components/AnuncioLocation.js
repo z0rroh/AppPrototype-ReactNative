@@ -46,7 +46,7 @@ export default class AnuncioLocation extends Component {
   async componentDidMount(){
     this.setState({isFetching: true});
     await this.getCurrentPosition();
-    
+
     this.watchID = navigator.geolocation.watchPosition(
      (position) => {
        this.setInitialState(position);
@@ -89,9 +89,9 @@ export default class AnuncioLocation extends Component {
   }
 
   render() {
-    var {isFetching, initialPosition, markerPosition, error} = this.state;
-    console.log(initialPosition);
-    console.log(isFetching);
+    const {isFetching, initialPosition, markerPosition, error} = this.state;
+    const anuncio = this.props.navigation.state.params.anuncio;
+    console.log(anuncio.markerPosition);
     return (
       <View style={styles.container}>
       { !isFetching && !error ?
@@ -99,6 +99,9 @@ export default class AnuncioLocation extends Component {
           style={styles.map}
           provider={ PROVIDER_GOOGLE }
           initialRegion = {initialPosition}>
+          <MapView.Marker
+            coordinate={anuncio.markerPosition}
+            title={anuncio.title}/>
           <MapView.Circle
             center={markerPosition}
             strokeWidth={3}
