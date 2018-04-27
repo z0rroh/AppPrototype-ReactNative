@@ -6,12 +6,13 @@ import {
   Text,
   StyleSheet,
   Image,
-  Dimensions
+  Dimensions,
+  TouchableWithoutFeedback
 } from 'react-native';
 import {Card, CardItem, Thumbnail, Body, Left, Right, Button, Icon} from 'native-base'
 import ResponsiveImage from 'react-native-responsive-image'
-import MapView,Marker { PROVIDER_GOOGLE } from 'react-native-maps'
-
+import AnuncioLocation from './AnuncioLocation'
+import {StackNavigator} from 'react-navigation'
 var {width, height} = Dimensions.get('window');
 
 export default class CardComponent extends Component {
@@ -22,11 +23,14 @@ export default class CardComponent extends Component {
 
     };
   }
+
   render() {
+
+    const anuncio = this.props.anuncio;
     return (
       <Card>
         <CardItem bordered style={styles.cardItemTitle}>
-          <Text style={styles.cardItemTitleText}>Encontre verduras baratas!</Text>
+          <Text style={styles.cardItemTitleText}>{anuncio.title}</Text>
         </CardItem>
         <CardItem bordered cardBody style={styles.cardItemImage}>
           <ResponsiveImage initWidth={width} initHeight="210" source={require('../Images/Publicaciones/verduras.jpg')}/>
@@ -39,19 +43,15 @@ export default class CardComponent extends Component {
           <View style={styles.viewItemIcons}>
               <Button vertical transparent >
                 <Icon name="ios-heart-outline" style={{color: "black"}}/>
-                <Text style={styles.viewItemIconsButtonText}>100</Text>
+                <Text style={styles.viewItemIconsButtonText}>{anuncio.calification.loves}</Text>
               </Button>
               <Button vertical transparent>
                 <Icon name="ios-heart-outline" style={{color: "black"}}/>
-                <Text style={styles.viewItemIconsButtonText}>10</Text>
+                <Text style={styles.viewItemIconsButtonText}>{anuncio.calification.likes}</Text>
               </Button>
               <Button vertical transparent>
                 <Icon name="ios-heart-outline" style={{color: "black"}}/>
-                <Text style={styles.viewItemIconsButtonText}>10</Text>
-              </Button>
-              <Button vertical transparent>
-                <Icon name="ios-heart-outline" style={{color: "black"}}/>
-                <Text style={styles.viewItemIconsButtonText}>10</Text>
+                <Text style={styles.viewItemIconsButtonText}>{anuncio.calification.dislikes}</Text>
               </Button>
           </View>
         </CardItem>
@@ -59,24 +59,20 @@ export default class CardComponent extends Component {
           <Left>
             <Thumbnail small source={require('../Images/Avatars/mia.jpg')}/>
             <Body>
-              <Text style={styles.cardItemAutorText}>Carlos Riquelme Labrin</Text>
-              <Text style={styles.cardItemUbicationDateText}>Ubicación: Santiago, Pudahuel, Calle Travesia</Text>
-              <Text style={styles.cardItemUbicationDateText}>Hace 2 horas</Text>
+              <Text style={styles.cardItemAutorText}>{anuncio.autor}</Text>
+              <TouchableWithoutFeedback
+                onPress = {()=>{
+                  this.props.navigation.navigate('AnuncioLocation')
+                }}
+                >
+                <View style={styles.cardItemLocationView}>
+                  <Icon name="ios-locate-outline" style={{color: "grey", fontSize: 18, marginRight: 5}}/>
+                  <Text style={styles.cardItemUbicationText}>{anuncio.ubication}</Text>
+                </View>
+              </TouchableWithoutFeedback>
+              <Text style={styles.cardItemUbicationDateText}>{anuncio.date}</Text>
             </Body>
           </Left>
-        </CardItem>
-        <CardItem style={styles.mapContainer}>
-          <Text>HolA</Text>
-          <MapView
-            style={styles.map}
-            provider={ PROVIDER_GOOGLE }
-            region = {
-              {latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,}
-            }
-          />
         </CardItem>
       </Card>
     );
@@ -131,6 +127,15 @@ const styles = StyleSheet.create({
   },
   cardItemAutorText:{
     fontSize: 12,
+    fontWeight: "600"
+  },
+  cardItemLocationView:{
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  cardItemUbicationText:{
+    fontSize: 12,
+    color:"grey"
   },
   cardItemUbicationDateText:{
     fontSize: 12,

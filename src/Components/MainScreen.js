@@ -13,6 +13,8 @@ import FilterTab from './TabNavigation/FilterTab'
 import AddContentTab from './TabNavigation/AddContentTab'
 import ProfileTab from './TabNavigation/ProfileTab'
 import MapTab from './TabNavigation/MapTab'
+import AnuncioLocation from './AnuncioLocation'
+import {StackNavigator} from 'react-navigation'
 
 export default class MainScreen extends Component {
 

@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import {StackNavigator} from 'react-navigation'
 import MainScreen from './src/Components/MainScreen';
+import LoginScreen from './src/Components/LoginScreen';
 
 export default class App extends Component<Props> {
   render() {
@@ -22,11 +23,15 @@ export default class App extends Component<Props> {
   }
 }
 const AppStackNavigator = StackNavigator({
-  Main: {
+  MainScreen: {
     screen: MainScreen
-  }
-})
+  },
+  LoginScreen:{
+    screen: LoginScreen
+  },
 
+})
+//{ initialRouteName: (props) => { return props.screenProps.isAuthed ? 'Home' : 'Auth' } }
 const styles = StyleSheet.create({
   container: {
     flex: 1,

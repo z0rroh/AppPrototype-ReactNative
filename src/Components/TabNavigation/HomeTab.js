@@ -6,11 +6,16 @@ import {
   Text,
   StyleSheet,
   ScrollView,
+  FlatList
 } from 'react-native';
 import {Container,Content,Icon, Thumbnail, Header, Left, Right, Body} from 'native-base'
-import Anuncio from '../Anuncio';
+import AnuncioDetail from '../AnuncioDetail';
+import AnuncioLocation from '../AnuncioLocation';
+import AnunciosList from '../AnunciosList';
+import {StackNavigator} from 'react-navigation'
 
 export default class HomeTab extends Component {
+
 
   static navigationOptions = {
     tabBarIcon: ({tintColor}) =>(
@@ -19,30 +24,25 @@ export default class HomeTab extends Component {
   }
 
   render() {
-    const data =[{
-      id:"1",
-
-    }]
     return (
-      <Container style={styles.container}>
-        <Header>
-          <Left>
-            <Icon name="ios-menu" style={{paddingLeft:10}}></Icon>
-          </Left>
-          <Body>
-            <Text>Prototype</Text>
-          </Body>
-          <Right>
-            <Icon name="refresh" style={{paddingRight:10}}></Icon>
-          </Right>
-        </Header>
-        <Content>
-          <Anuncio/>
-        </Content>
-      </Container>
+      <HomeTabNavigator/>
     );
   }
 }
+
+const HomeTabNavigator = StackNavigator({
+  AnuncioLocation:{
+    screen: AnuncioLocation
+  },
+  AnunciosList: {
+    screen: AnunciosList
+  },
+  AnuncioDetail:{
+    screen: AnuncioDetail
+  },
+},{
+    initialRouteName: 'AnunciosList'
+})
 
 const styles = StyleSheet.create({
   container: {
